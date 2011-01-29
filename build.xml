@@ -13,6 +13,10 @@
                deprecation="on" includeantruntime="off" classpath="${lib.dir}/asm-3.3.1.jar">
             <src path="${src.dir}" />
         </javac>
+
+        <copy todir="${build.dir}" preservelastmodified="true">
+            <fileset dir="${src.dir}" />
+        </copy>
     </target>
 
     <target name="jar" depends="compile" description="JARs the classes">
