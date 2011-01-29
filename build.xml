@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="window-matching-agent" default="jar" basedir=".">
+
+    <property name="src.dir" value="src"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value=".classes"/>
+
+	<target name="compile" description="Compiles Java sources" >
+        <mkdir dir="${build.dir}" />
+
+		<javac destdir="${build.dir}" target="1.5" source="1.5" debug="on" optimize="off" 
+               deprecation="on" includeantruntime="off" classpath="${lib.dir}/asm-3.3.1.jar">
+			<src path="${src.dir}" />
+		</javac>
+    </target>
+
+    <target name="jar" depends="compile" description="JARs the classes">
+		<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${lib.dir}/jarjar-1.0.jar"/>
+
+        <mkdir dir="${dist.dir}" />
+ 
+        <jarjar jarfile="${dist.dir}/agent.jar" compress="true">
+            <zipfileset src="${lib.dir}/asm-3.3.1.jar"/>
+            <fileset dir="${build.dir}">
+                <include name="**" />
+            </fileset>
+			<rule pattern="org.objectweb.**" result="nl.jteam.org.objectweb.@1"/>
+            <manifest>
+                <attribute name="Premain-Class" value="nl.jteam.agent.MyTransformer"/>
+            </manifest>
+        </jarjar>
+    </target>
+
+    <target name="clean" description="Cleans up">
+		<delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+
+</project>
