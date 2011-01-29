@@ -1,0 +1,7 @@
+*~
+*.bak
+
+*.ipr
+*.iws
+.idea/
+
