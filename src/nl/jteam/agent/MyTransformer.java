@@ -97,9 +97,8 @@ public class MyTransformer implements ClassFileTransformer {
         }
     }
 
-
-	public static void premain(String agentArguments, Instrumentation instrumentation) {
-		instrumentation.addTransformer(new MyTransformer(agentArguments));
-	}
+    public static void premain(String agentArguments, Instrumentation instrumentation) {
+        instrumentation.addTransformer(new MyTransformer(agentArguments));
+    }
 
 }
