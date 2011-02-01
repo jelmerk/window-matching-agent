@@ -81,12 +81,6 @@ public class MyTransformer implements ClassFileTransformer {
             this.awtAppClassName = awtAppClassName;
         }
 
-
-        @Override
-        public void visitLdcInsn(Object o) {
-            super.visitLdcInsn(o);    //To change body of overridden methods use File | Settings | File Templates.
-        }
-
         @Override
         public void visitMethodInsn(int opcode, String owner, String name, String desc) {
             super.visitMethodInsn(opcode, owner, name, desc);
