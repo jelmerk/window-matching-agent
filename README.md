@@ -16,7 +16,7 @@ the generated agent.jar file will end up in the dist folder
 Downloading binaries
 --------------------
 
-You can download a recent binary from [amazon s3](http://jelmer.s3.amazonaws.com/agent.jar)
+You can download a [recent binary](http://jelmer.s3.amazonaws.com/agent.jar) from amazon s3
 
 Usage
 -----
