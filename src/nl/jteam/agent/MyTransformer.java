@@ -28,7 +28,7 @@ import java.security.ProtectionDomain;
  */
 public class MyTransformer implements ClassFileTransformer {
 
-    private String awtAppClassName;
+    private final String awtAppClassName;
 
     public MyTransformer(String awtAppClassName) {
         this.awtAppClassName = awtAppClassName;
@@ -57,7 +57,7 @@ public class MyTransformer implements ClassFileTransformer {
 
     private static class MyClassAdapter extends ClassAdapter {
 
-        private String awtAppClassName;
+        private final String awtAppClassName;
 
         private MyClassAdapter(ClassVisitor cv, String awtAppClassName) {
             super(cv);
@@ -74,7 +74,7 @@ public class MyTransformer implements ClassFileTransformer {
 
     private static class MyMethodVisitor extends MethodAdapter {
 
-        private String awtAppClassName;
+        private final String awtAppClassName;
 
         private MyMethodVisitor(MethodVisitor methodVisitor, String awtAppClassName) {
             super(methodVisitor);
