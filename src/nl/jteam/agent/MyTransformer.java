@@ -44,7 +44,7 @@ public class MyTransformer implements ClassFileTransformer {
             ClassReader reader = new ClassReader(classfileBuffer);
             ClassWriter writer = new ClassWriter(0);
 
-            reader.accept(new MyClassAdapter(writer, awtAppClassName), 0);
+            reader.accept(new MyClassVisitor(writer, awtAppClassName), 0);
 
             result = writer.toByteArray();
 
@@ -55,12 +55,12 @@ public class MyTransformer implements ClassFileTransformer {
         return result;
     }
 
-    private static class MyClassAdapter extends ClassAdapter {
+    private static class MyClassVisitor extends ClassVisitor {
 
         private final String awtAppClassName;
 
-        private MyClassAdapter(ClassVisitor cv, String awtAppClassName) {
-            super(cv);
+        private MyClassVisitor(ClassVisitor cv, String awtAppClassName) {
+            super(Opcodes.ASM5, cv);
             this.awtAppClassName= awtAppClassName;
         }
 
@@ -72,18 +72,18 @@ public class MyTransformer implements ClassFileTransformer {
 
     }
 
-    private static class MyMethodVisitor extends MethodAdapter {
+    private static class MyMethodVisitor extends MethodVisitor {
 
         private final String awtAppClassName;
 
         private MyMethodVisitor(MethodVisitor methodVisitor, String awtAppClassName) {
-            super(methodVisitor);
+            super(Opcodes.ASM5, methodVisitor);
             this.awtAppClassName = awtAppClassName;
         }
 
         @Override
-        public void visitMethodInsn(int opcode, String owner, String name, String desc) {
-            super.visitMethodInsn(opcode, owner, name, desc);
+        public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+            super.visitMethodInsn(opcode, owner, name, desc, itf);
             if ("<init>".equals(name)) {
                 visitLdcInsn(awtAppClassName);
                 visitFieldInsn(Opcodes.PUTSTATIC, "sun/awt/X11/XToolkit", "awtAppClassName", "Ljava/lang/String;");

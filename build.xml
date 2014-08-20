@@ -9,8 +9,8 @@
     <target name="compile" description="Compiles Java sources" >
         <mkdir dir="${build.dir}" />
 
-        <javac destdir="${build.dir}" target="1.5" source="1.5" debug="on" optimize="off"
-               deprecation="on" includeantruntime="off" classpath="${lib.dir}/asm-3.3.1.jar">
+        <javac destdir="${build.dir}" target="1.7" source="1.7" debug="on" optimize="off"
+               deprecation="on" includeantruntime="off" classpath="${lib.dir}/asm-5.0.3.jar">
             <src path="${src.dir}" />
         </javac>
 
@@ -25,7 +25,7 @@
         <mkdir dir="${dist.dir}" />
 
         <jarjar jarfile="${dist.dir}/agent.jar" compress="true">
-            <zipfileset src="${lib.dir}/asm-3.3.1.jar"/>
+            <zipfileset src="${lib.dir}/asm-5.0.3.jar"/>
             <fileset dir="${build.dir}">
                 <include name="**" />
             </fileset>
